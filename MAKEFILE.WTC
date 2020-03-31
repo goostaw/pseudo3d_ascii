@@ -1,0 +1,17 @@
+obj = main.obj game.obj map.obj hero.obj coord.obj screen.obj sprite.obj tile.obj figure.obj bat.obj
+bin = dung.exe
+
+CC = wpp
+CPPFLAGS = -ml -0
+LDFLAGS = libr pdcurses 
+LD = wlink
+
+$(bin): $(obj)
+	$(LD) name $@ file *.obj $(LDFLAGS)
+.cpp.obj:
+	$(CC) -fo=$@ $(CPPFLAGS) $<
+
+clean: .symbolic
+	del *.obj
+	del $(bin)
+
