@@ -3,7 +3,7 @@
 Map::Map( int sy, int sx, int py, int px )
 		: _size( sy, sx ), _position( py, px )
 {
-	_createTileArray();
+	createTileArray();
 }
 Map::~Map()
 {
@@ -11,29 +11,29 @@ Map::~Map()
 	{
 		for ( int x = 0; x < _size.x; x++ )
 		{
-			delete _tileArray[y][x];
+			delete _pTileArray[y][x];
 		}
-		delete [] _tileArray[y];
+		delete [] _pTileArray[y];
 	}
-	delete [] _tileArray;
+	delete [] _pTileArray;
 }
-void Map::_createTileArray()
+void Map::createTileArray()
 {
-	_tileArray = new Tile** [ _size.y ];
+	_pTileArray = new Tile** [ _size.y ];
 	for ( int y = 0; y < _size.y; y++ )
 	{
-		_tileArray[ y ] = new Tile*[ _size.x ];
+		_pTileArray[ y ] = new Tile*[ _size.x ];
 	}
 }
 Bag<Coord>& Map::getFreePos()
 {
-	_freePos.clear();
+	_freePos.roll_down();
 
 	for ( int y = 0; y < _size.y; y++ )
 	{
 		for ( int x = 0; x < _size.x; x++ )
 		{
-			if ( ( _tileArray[y][x]->ch & A_CHARTEXT  ) == '.' )
+			if ( ( _pTileArray[y][x]->ch & A_CHARTEXT  ) == '.' )
 			{
 				_freePos.push_back( Coord( y, x ) );
 			}
@@ -57,8 +57,8 @@ bool Map::is_within( Coord c )
 /*
 chtype Map::stepOn( Coord c, chtype ch )
 {
-	chtype previous = _tileArray[c.y][c.x]->ch;
-	_tileArray[c.y][c.x]->ch = ch;
+	chtype previous = _pTileArray[c.y][c.x]->ch;
+	_pTileArray[c.y][c.x]->ch = ch;
 	return previous;
 	
 }
@@ -69,7 +69,7 @@ istream& operator>> ( istream& i, Map& m )
 	i >> m._size.y >> m._size.x >> m._position.y >> m._position.x;
 //	char linefeed;
 //	i.get( linefeed );
-	if ( !m._tileArray ) m._createTileArray();
+	if ( !m._pTileArray ) m.createTileArray();
 	
 	char* temp = new char[m._size.x + 1]; // + 1  miejsce na 0
 	
@@ -79,7 +79,7 @@ istream& operator>> ( istream& i, Map& m )
 		i.getline( temp, m._size.x + 2 ); //  + 1 coby linefeed zadzialal
 		for ( int x = 0; x < m._size.x; x++ )
 		{
-			Tile* &t = m._tileArray[y][x];
+			Tile* &t = m._pTileArray[y][x];
 			switch ( temp[x] )
 			{
 				case '.': t = new Floor; break;

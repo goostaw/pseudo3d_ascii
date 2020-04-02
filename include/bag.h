@@ -15,6 +15,7 @@ class Bag
 	int size(){ return _next; }
 	int capacity(){ return _capacity; }
 	void clear();
+	void roll_down();
 	void resize( const int& );
 	T& at( int );
 	T& operator[]( int i ){ return _ptr[i]; }
@@ -27,13 +28,14 @@ Bag<T>::Bag() : _ptr( NULL ), _capacity(0), _next(0)
 template<typename T>
 Bag<T>::~Bag()
 {
-	delete []_ptr;
+	if ( _ptr ) delete []_ptr;
+	_ptr = NULL;
 }
 /******/
 template<typename T>
 void Bag<T>::push_back( const T& obj )
 {
-	if ( !(_capacity > _next) )
+	if ( _next >= _capacity )
 	{
 		int temp_capacity = _capacity + 5;
 		T* temp = new T[temp_capacity];
@@ -58,6 +60,13 @@ T& Bag<T>::at( int i )
 }
 template<typename T>
 void Bag<T>::clear()
+{
+	_capacity = _next = 0;
+	if ( _ptr ) delete []_ptr;
+	_ptr = NULL;
+}
+template<typename T>
+void Bag<T>::roll_down()
 {
 	_next = 0;
 }

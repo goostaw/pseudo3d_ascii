@@ -4,6 +4,7 @@
 //#include <time.h>
 
 // static
+Hero::Direction Hero::dirTab[4] = { NORTH, EAST, SOUTH, WEST };
 int Hero::dov = 5;
 chtype Hero::icon[4] = { '^', '>', 'v', '<' };
 Coord Hero::movc[4] = { Coord( -1, 0 ),	Coord( 0, 1 ),
@@ -15,10 +16,10 @@ Bag<int> Hero::veil[13];
 Hero::Hero( Map& m ) : Figure( m )
 {
 	initRandPos();
-	_facing = rand() % 4;
+	_facing = dirTab[ rand() % 4 ];
 	initRov();
-	_initVeil();
-	_initFov();
+	initVeil();
+	initFov();
 }
 void Hero::initRov()
 {
@@ -49,21 +50,21 @@ void Hero::iconOnMap()
 }
 void Hero::TurnRight()
 {
-	if ( _facing < 3 ) _facing++;
-	else _facing = 0;
-	_updateFov();
+	if ( _facing < 3 )	_facing = dirTab[ _facing + 1 ];
+	else _facing = NORTH;
+	updateFov();
 }
 void Hero::TurnLeft()
 {
-	if ( _facing ) _facing--;
-	else _facing = 3;
-	_updateFov();
+	if ( _facing ) _facing = dirTab[ _facing - 1 ];	
+	else _facing = WEST;	
+	updateFov();
 }
 void Hero::TurnBack()
 {
-	if ( _facing > 1 ) _facing -= 2;
-	else _facing += 2;
-	_updateFov();
+	if ( _facing < 2 ) _facing = dirTab[ _facing + 2 ];
+	else _facing = dirTab[ _facing - 2 ];
+	updateFov();
 }
 void Hero::Move()
 {
@@ -74,7 +75,7 @@ void Hero::Move()
 		_map[_pos.y][_pos.x]->ch = _memory;
 		_memory = ch;
 		_pos = t;
-		_updateFov();
+		updateFov();
 	}
 }
 bool Hero::isLegal( char ch )
@@ -88,10 +89,10 @@ void Hero::Door()
 	if ( t->Switch() ) // polimorfic
 	{
 		t->is_open ? t->ch = '/': t->ch = '+';
-		_updateFov();
+		updateFov();
 	}
 }
-void Hero::_initFov()
+void Hero::initFov()
 {
 	int s = 0;
 	for ( int i = 0; i < dov; i++ )
@@ -101,13 +102,13 @@ void Hero::_initFov()
 	_fov.resize( s );
 	_fovMemory.resize( s );
 	_tempFov.resize( s );
-	_updateFov();
+	updateFov();
 }
-void Hero::_updateFov()
+void Hero::updateFov()
 {
 	iconOnMap();
-	_tempFov.clear();
-	_fov.clear();
+	_tempFov.roll_down();
+	_fov.roll_down();
 	int y;
 	Coord idx;
 	Dcoord dc;
@@ -158,7 +159,7 @@ void Hero::_updateFov()
 		}
 	}
 }
-void Hero::_initVeil()
+void Hero::initVeil()
 {
 	int fovIndex[] =
 		{	15, 10, 7,

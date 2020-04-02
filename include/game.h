@@ -10,13 +10,12 @@
 
 class Game
 {
-	Screen* _scr;
-	Map* _map;
-	Hero* _hero;
+	Screen* _pScr;
+	Map* _pMap;
+	Hero* _pHero;
 	Bag<Figure*> _monsters;
 	
-	void _initMap();
-	void _initMonsters();
+	void initMonsters();
 
   public:
 	Game();

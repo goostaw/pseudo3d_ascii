@@ -11,7 +11,7 @@ class Sprite;
 
 class Stripe
 {
-	char * _text;
+	char * _pText;
 	int _lenght;
 	Coord _crd;
 
@@ -19,8 +19,7 @@ class Stripe
 	Stripe(){}
 	Stripe( char* ch );
 	~Stripe();
-	char* getText(){ return _text; }
-//	int getLenght(){ return _lenght; }
+	char* getText(){ return _pText; }
 	Coord getCrd(){ return _crd; }
 
 	friend class Sprite;
@@ -28,14 +27,14 @@ class Stripe
 };
 class Sprite
 {
-	Stripe* _stripePtr;
+	Stripe* _pStripe;
 	int _height;
 
   public:
-	Sprite() : _stripePtr( NULL ), _height( 0 ){}
+	Sprite() : _pStripe( NULL ), _height( 0 ){}
 	~Sprite();
 	int getHeight(){ return _height; }
-	Stripe* getPtr() { return _stripePtr; }
+	Stripe* getPtr() { return _pStripe; }
 	
 	friend istream& operator>> ( istream&, Sprite& );
 };

@@ -11,17 +11,17 @@
 
 class Screen
 {
-	WINDOW* _2d;
-	WINDOW* _3d;
-	Map* _map;
-	Hero* _hero;
+	WINDOW* _p2d;
+	WINDOW* _p3d;
+	Map* _pMap;
+	Hero* _pHero;
 	Bag< Figure* > &_monsters;
 	Bag< Bag< Bag< Sprite > > > _tileSprites;
 	Bag< Bag< Bag< Sprite > > > _figureSprites;
 
-	void _updatePrevFov();
-	void _initSprites( const char*, Bag< Bag< Bag< Sprite > > >& , int );
-	void _printSprite( Sprite&, int = 0 );
+	void updatePrevFov();
+	void initSprites( const char*, Bag< Bag< Bag< Sprite > > >& , int );
+	void printSprite( Sprite&, int = 0 );
 	
   public:
 	const static int tileTabSize = 3;
@@ -32,7 +32,7 @@ class Screen
 	void update();
 	void help();
 	void firstRunInfo();
-	int waitOnKey(){ return wgetch( _2d ); }
+	int waitOnKey(){ return wgetch( _p2d ); }
 };
 
 

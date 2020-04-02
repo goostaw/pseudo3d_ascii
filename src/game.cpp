@@ -8,49 +8,49 @@ Game::Game()
 {
 	srand( time( NULL ) );
 
-	_map = new Map;
-	_map->init();
-	_hero = new Hero( *_map );
-	_initMonsters();
-	_scr = new Screen( _map, _hero, _monsters );
+	_pMap = new Map;
+	_pMap->init();
+	_pHero = new Hero( *_pMap );
+	initMonsters();
+	_pScr = new Screen( _pMap, _pHero, _monsters );
 }
 Game::~Game()
 {
-	delete _scr;
-	delete _hero;
-	delete _map;
+	delete _pScr;
+	delete _pHero;
+	delete _pMap;
 	for ( int i = 0; i < _monsters.size(); i++ ) delete _monsters[i];
 }
-void Game::_initMonsters()
+void Game::initMonsters()
 {
 	int size = rand() % 7 + 1;
 	 _monsters.resize( size );
 
 	for ( int i = 0; i < size; i++ )
 	{
-		_monsters[i] = new Bat( *_map );
+		_monsters[i] = new Bat( *_pMap );
 		_monsters[i]->initRandPos();
 		_monsters[i]->iconOnMap();
 	}
 }
 void Game::loop()
 {	
-	_scr->update();
-	_scr->firstRunInfo();
+	_pScr->update();
+	_pScr->firstRunInfo();
 	
 	int w = 0;
 	while ( w != 'q' )
 	{
-		w = _scr->waitOnKey();
+		w = _pScr->waitOnKey();
 		switch ( w )
 		{
-			case KEY_LEFT:	_hero->TurnLeft(); break;
-			case KEY_RIGHT:	_hero->TurnRight(); break;
-			case KEY_UP:	_hero->Move(); break;
-			case KEY_DOWN:	_hero->TurnBack(); break;
-			case 'd':		_hero->Door(); break;
-			case 'h':	_scr->help(); break;
+			case KEY_LEFT:	_pHero->TurnLeft(); break;
+			case KEY_RIGHT:	_pHero->TurnRight(); break;
+			case KEY_UP:	_pHero->Move(); break;
+			case KEY_DOWN:	_pHero->TurnBack(); break;
+			case 'd':		_pHero->Door(); break;
+			case 'h':	_pScr->help(); break;
 		}
-		_scr->update();
+		_pScr->update();
 	}
 }

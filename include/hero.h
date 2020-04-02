@@ -9,17 +9,18 @@
 
 class Hero : public Figure
 {
-	int _facing;
+	enum Direction { NORTH, EAST, SOUTH, WEST } _facing;
 	Bag<Dcoord> _tempFov;
 	Bag<Dcoord> _fov;
 	Bag<Coord> _fovMemory;
-	void _initFov();
-	void _initVeil();
-	void _updateFov();
+	void initFov();
+	void initVeil();
+	void updateFov();
 
   public:
 	Hero( Map& );
 
+	static Direction dirTab[4];
 	static chtype icon[4];
 	static Coord movc[4];
 	static Bag< Bag<Coord> > rov [4]; // range of view
@@ -28,7 +29,7 @@ class Hero : public Figure
 	static Bag<int> veil[13];
 	static void initRov();
 
-	int getFacing(){ return _facing; }
+	Direction getFacing(){ return _facing; }
 	Bag<Dcoord>& getFov(){ return _fov; }
 	Bag<Coord>& getFovMemory(){ return _fovMemory; }
 	void iconOnMap();
