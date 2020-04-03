@@ -6,6 +6,8 @@
 class Tile
 {
   public:
+	Tile(){}
+	Tile( bool isOpen ) : is_open( isOpen ){}
 	virtual ~Tile(){}
 	chtype ch;
 	bool is_m; // is visible in fov memory
@@ -32,6 +34,7 @@ class Door: public Tile
 {
   public:
 	Door() { is_m = FALSE; }
+	Door( bool isOpen ) : Tile( isOpen ){}
 	virtual bool Switch();
 	virtual int sprTabIndex(){ if( is_open ) return 2; else return 1; }
 };

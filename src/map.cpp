@@ -84,8 +84,8 @@ istream& operator>> ( istream& i, Map& m )
 			{
 				case '.': t = new Floor; break;
 				case '#': t = new Wall; break;
-				case '+': t = new Door;	t->is_open = false; break;
-				case '/': t = new Door; t->is_open = true; break;
+				case '+': t = new Door( false ); break;
+				case '/': t = new Door( true ); break;
 				default: t = new Floor;
 			}
 			t->ch = temp[x];
