@@ -1,16 +1,16 @@
-#ifndef bag_h
-#define bag_h
+#ifndef array_h
+#define array_h
 
 template<typename T>
-class Bag 
+class Array 
 {
 	T* _ptr;
 	int _capacity;
 	int _next;
 
   public:
-	Bag();
-	~Bag();
+	Array();
+	~Array();
 	void push_back( const T& );
 	int size(){ return _next; }
 	int capacity(){ return _capacity; }
@@ -22,18 +22,18 @@ class Bag
 };
 /*******************************************/
 template<typename T>
-Bag<T>::Bag() : _ptr( NULL ), _capacity(0), _next(0)
+Array<T>::Array() : _ptr( NULL ), _capacity(0), _next(0)
 {}
 /*******/
 template<typename T>
-Bag<T>::~Bag()
+Array<T>::~Array()
 {
 	if ( _ptr ) delete []_ptr;
 	_ptr = NULL;
 }
 /******/
 template<typename T>
-void Bag<T>::push_back( const T& obj )
+void Array<T>::push_back( const T& obj )
 {
 	if ( _next >= _capacity )
 	{
@@ -54,24 +54,24 @@ void Bag<T>::push_back( const T& obj )
 }
 /******/
 template<typename T>
-T& Bag<T>::at( int i )
+T& Array<T>::at( int i )
 {
 	return _ptr[i];
 }
 template<typename T>
-void Bag<T>::clear()
+void Array<T>::clear()
 {
 	_capacity = _next = 0;
 	if ( _ptr ) delete []_ptr;
 	_ptr = NULL;
 }
 template<typename T>
-void Bag<T>::roll_down()
+void Array<T>::roll_down()
 {
 	_next = 0;
 }
 template<typename T>
-void Bag<T>::resize( const int& s )
+void Array<T>::resize( const int& s )
 {
 	if ( _next < s )
 	{
@@ -89,4 +89,4 @@ void Bag<T>::resize( const int& s )
 	}
 }
 
-#endif // bag_h
+#endif // array_h

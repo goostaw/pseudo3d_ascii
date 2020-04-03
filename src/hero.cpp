@@ -1,5 +1,5 @@
 #include "hero.h"
-#include "bag.h"
+#include "array.h"
 #include <stdlib.h>
 //#include <time.h>
 
@@ -9,9 +9,9 @@ int Hero::dov = 5;
 chtype Hero::icon[4] = { '^', '>', 'v', '<' };
 Coord Hero::movc[4] = { Coord( -1, 0 ),	Coord( 0, 1 ),
 			Coord( 1, 0 ),	Coord( 0, -1 ) };
-Bag< Bag<Coord> > Hero::rov[4];
+Array< Array<Coord> > Hero::rov[4];
 int Hero::wov[5] = { 5, 5, 3, 3, 3 };
-Bag<int> Hero::veil[13];
+Array<int> Hero::veil[13];
 // ------
 Hero::Hero( Map& m ) : Figure( m )
 {

@@ -25,7 +25,7 @@ void Map::createTileArray()
 		_pTileArray[ y ] = new Tile*[ _size.x ];
 	}
 }
-Bag<Coord>& Map::getFreePos()
+Array<Coord>& Map::getFreePos()
 {
 	_freePos.roll_down();
 

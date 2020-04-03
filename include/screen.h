@@ -5,7 +5,7 @@
 #include "coord.h"
 #include "map.h"
 #include "hero.h"
-#include "bag.h"
+#include "array.h"
 #include "sprite.h"
 #include "figure.h"
 
@@ -15,19 +15,19 @@ class Screen
 	WINDOW* _p3d;
 	Map* _pMap;
 	Hero* _pHero;
-	Bag< Figure* > &_monsters;
-	Bag< Bag< Bag< Sprite > > > _tileSprites;
-	Bag< Bag< Bag< Sprite > > > _figureSprites;
+	Array< Figure* > &_monsters;
+	Array< Array< Array< Sprite > > > _tileSprites;
+	Array< Array< Array< Sprite > > > _figureSprites;
 
 	void updatePrevFov();
-	void initSprites( const char*, Bag< Bag< Bag< Sprite > > >& , int );
+	void initSprites( const char*, Array< Array< Array< Sprite > > >& , int );
 	void printSprite( Sprite&, int = 0 );
 	
   public:
 	const static int tileTabSize = 3;
 	const static int figureTabSize = 1;
 
-	Screen( Map*, Hero*, Bag< Figure* >& );
+	Screen( Map*, Hero*, Array< Figure* >& );
 	~Screen();
 	void update();
 	void help();

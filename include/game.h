@@ -4,7 +4,7 @@
 #include "screen.h"
 #include "map.h"
 #include "hero.h"
-#include "bag.h"
+#include "array.h"
 #include "sprite.h"
 #include "figure.h"
 
@@ -13,7 +13,7 @@ class Game
 	Screen* _pScr;
 	Map* _pMap;
 	Hero* _pHero;
-	Bag<Figure*> _monsters;
+	Array<Figure*> _monsters;
 	
 	void initMonsters();
 

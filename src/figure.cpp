@@ -1,12 +1,12 @@
 #include "figure.h"
-#include "bag.h"
+#include "array.h"
 #include <stdlib.h>
 
 Coord Figure::initRandPos()
 {
 	if ( &_map )
 	{
-		Bag<Coord>& f = _map.getFreePos();
+		Array<Coord>& f = _map.getFreePos();
 		if ( f.size() )
 		{
 			_pos = f.at( rand() % f.size() );

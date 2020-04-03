@@ -4,7 +4,7 @@
 #include <time.h>
 #include <cstring>
 
-Screen::Screen( Map* m, Hero* h, Bag< Figure* >& f )
+Screen::Screen( Map* m, Hero* h, Array< Figure* >& f )
 	: _pMap( m ), _pHero( h ), _monsters( f )
 {
 	// curses init ----
@@ -39,7 +39,7 @@ Screen::~Screen()
 	delwin( _p2d );
 	endwin();
 }
-void Screen::initSprites( const char* nm, Bag< Bag< Bag<Sprite> > >&sp, int sz )
+void Screen::initSprites( const char* nm, Array< Array< Array<Sprite> > >&sp, int sz )
 {
 	fstream fi( nm );
 	if ( fi.good() )
@@ -62,7 +62,7 @@ void Screen::initSprites( const char* nm, Bag< Bag< Bag<Sprite> > >&sp, int sz )
 }
 void Screen::updatePrevFov()
 {
-	Bag<Coord>& fov = _pHero->getFovMemory();
+	Array<Coord>& fov = _pHero->getFovMemory();
 	Coord crd;
 	
 	for ( int i = 0; i < fov.size(); i++ )
@@ -78,7 +78,7 @@ void Screen::update()
 {
 	updatePrevFov();
 
-	Bag<Dcoord>& fov = _pHero->getFov();
+	Array<Dcoord>& fov = _pHero->getFov();
 	int index;
 	Icoord ic;
 	

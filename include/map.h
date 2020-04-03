@@ -3,7 +3,7 @@
 
 #include "coord.h"
 #include "tile.h"
-#include "bag.h"
+#include "array.h"
 #include <iostream>
 #include <curses.h>
 
@@ -13,7 +13,7 @@ class Map
 	Coord _size;
 	Coord _position;
 	Tile*** _pTileArray;
-	Bag<Coord> _freePos;
+	Array<Coord> _freePos;
 	void createTileArray();
 
   public:
@@ -23,7 +23,7 @@ class Map
 	Coord getSize() { return _size; }
 	Coord getPos() { return _position; }
 	Tile*** getTileArray() { return _pTileArray; }
-	Bag<Coord>& getFreePos();
+	Array<Coord>& getFreePos();
 	bool is_within( Coord );
 
 	void init();
