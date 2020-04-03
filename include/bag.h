@@ -42,7 +42,7 @@ void Bag<T>::push_back( const T& obj )
 		for( int i = 0; i < temp_capacity; i++ )
 		{
 			if ( i < _capacity ) temp[i] = _ptr[i];
-			else i = temp_capacity;
+			else break;
 		}
 		if ( _ptr ) delete []_ptr;
 		_ptr = temp;
@@ -79,7 +79,7 @@ void Bag<T>::resize( const int& s )
 		for( int i = 0; i < s; i++ )
 		{
 			if ( i < _capacity ) temp[i] = _ptr[i];
-			else i = s - 1;
+			else break;
 		}
 		if ( _ptr ) delete []_ptr;
 		_ptr = temp;
